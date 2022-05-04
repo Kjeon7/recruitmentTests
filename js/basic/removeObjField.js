@@ -4,5 +4,13 @@
 // Create test functions that print out the result, state the expected result in a comment with the printout call.
 
 function removeProperty(obj, prop) {
-    return null;
+  if(obj.hasOwnProperty(prop)){
+    delete obj[prop];
+    return true;
   }
+    return false;
+  }
+ let person = {name : "hi", sex : "male"};
+
+  console.log(removeProperty(person,"h"));
+  console.log(person);

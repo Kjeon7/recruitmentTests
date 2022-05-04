@@ -109,6 +109,35 @@ function momsSpagetti(lyrics) {
     loseYourself = loseYourself + lyrics.ending;
 
     return loseYourself;
+
 }
 
 // REFACTORED VERSION HERE //
+
+//Notes:
+//Promise based refactoring of original function. Changed from regular functions to arrow functions to fit more in line with ES6 conventions. 
+//Used singular promise function that would accept lyrics instead of multiple promise functions for each lyrics section for simplicity.
+//momSpaget function handles logic of what to do for each section of lyrics. 
+
+
+// this function accepts a section of the lyrics, and returns a promise that when resolved, prints the lyrics onto the console, as well as onto a document.
+const promiseMaker = (lyricsSection) =>{
+
+    return Promise.resolve(console.log(lyricsSection + '\n'), document.write(lyricsSection + '\n'));
+}
+
+// this function takes in the lyrics defined at top, and calls the PromiseMaker function for each section of the lyrics
+const momSpaget = (lyrics) =>{
+
+    promiseMaker(lyrics.intro); // Prints intro to console as well as to document
+
+    for(i = 0; i<lyrics.choruses.length; i++){ // for loop goes through choruses
+        promiseMaker(lyrics.choruses[i].chorus); // prints different choruses based on the index the for loop is at
+        for(y = 0; y< lyrics.refrainRepeat; y++){ // secondary for loop to repeat printing of refrains, as refrains need to be printed more than once after a chorus
+            promiseMaker(lyrics.refrain); // prints refrain lyrics
+        }
+    }
+    promiseMaker(lyrics.ending); // print lyrics ending
+}
+
+momSpaget(lyrics);
